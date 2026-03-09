@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  const FRAME_COUNT = 243;
+  const FRAME_COUNT = 182;
   const FRAME_PATH = 'frames/frame_';
   const FRAME_EXT = '.jpg';
 
@@ -47,30 +47,51 @@
     ctx.drawImage(img, sx, sy, sw, sh);
   }
 
-  // --- Preload frames ---
+  // --- Preload frames (progressive: key frames first, then fill in) ---
   function preloadFrames() {
     return new Promise((resolve) => {
       const loaderPercent = document.querySelector('.loader-percent');
 
+      // Phase 1: every 5th frame (fast initial load)
+      const keyFrames = [];
+      const fillFrames = [];
       for (let i = 1; i <= FRAME_COUNT; i++) {
-        const img = new Image();
-        const num = String(i).padStart(4, '0');
-        img.src = `${FRAME_PATH}${num}${FRAME_EXT}`;
-
-        img.onload = () => {
-          loadedCount++;
-          const pct = Math.round((loadedCount / FRAME_COUNT) * 100);
-          if (loaderPercent) loaderPercent.textContent = pct + '%';
-          if (loadedCount === FRAME_COUNT) resolve();
-        };
-
-        img.onerror = () => {
-          loadedCount++;
-          if (loadedCount === FRAME_COUNT) resolve();
-        };
-
-        images[i - 1] = img;
+        if (i % 5 === 1 || i === FRAME_COUNT) {
+          keyFrames.push(i);
+        } else {
+          fillFrames.push(i);
+        }
       }
+
+      let keyLoaded = 0;
+      const totalKey = keyFrames.length;
+
+      function loadFrame(i) {
+        return new Promise((res) => {
+          const img = new Image();
+          const num = String(i).padStart(4, '0');
+          img.src = `${FRAME_PATH}${num}${FRAME_EXT}`;
+          img.onload = () => { loadedCount++; res(); };
+          img.onerror = () => { loadedCount++; res(); };
+          images[i - 1] = img;
+        });
+      }
+
+      // Load key frames first
+      const keyPromises = keyFrames.map((i) =>
+        loadFrame(i).then(() => {
+          keyLoaded++;
+          const pct = Math.round((keyLoaded / totalKey) * 100);
+          if (loaderPercent) loaderPercent.textContent = pct + '%';
+        })
+      );
+
+      Promise.all(keyPromises).then(() => {
+        // Show page immediately with key frames
+        resolve();
+        // Phase 2: fill remaining frames in background
+        fillFrames.forEach((i) => loadFrame(i));
+      });
     });
   }
 
