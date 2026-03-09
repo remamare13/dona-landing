@@ -1,0 +1,28 @@
+# Dona — AI asistentka in ERP za odvetniške pisarne
+
+> Dona je produkt podjetja Numenor d.o.o. AI asistentka in celovit ERP sistem, razvit posebej za slovenske odvetniške pisarne.
+
+## Kaj je Dona
+
+Dona je lokalno delujoč AI sistem, ki avtomatizira operativne procese odvetniške pisarne. Deluje 100% na lokalni napravi (Mac mini M4) — brez oblaka, brez zunanjih strežnikov. Odvetniška tajnost po Zakonu o odvetništvu je zagotovljena v celoti.
+
+## Funkcionalnosti
+
+- **Vhodna pošta:** Samodejno branje, klasifikacija in razvrščanje prejetih dokumentov v ustrezne spise
+- **Centralno vodenje spisov:** Spisi, dokumenti, stranke, roki, opravila in korespondenca na enem mestu
+- **Upravljanje rokov:** Samodejna opozorila pred iztekom procesnih rokov
+- **Pravna raziskava:** Iskanje zakonodaje (PISRS) in sodne prakse (sodnapraksa.si) v naravnem jeziku
+- **Priprava dokumentov:** Osnutki vlog, pritožb in dopisov na podlagi spisa in veljavne zakonodaje
+- **ZPPDFT-2 compliance:** Avtomatizirano preverjanje skladnosti z revizijsko sledjo
+
+## Ključne lastnosti
+
+- 900+ zakonov in predpisov
+- 350.000+ sodnih odločb
+- 100% lokalno delovanje
+- Skladno z ZOdv (odvetniška tajnost) in GDPR
+
+## Kontakt
+
+- Email: dona@numenor.si
+- Spletna stran: https://dona.numenor.si
