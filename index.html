@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dona — AI za odvetniške pisarne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <span class="loader-percent">0%</span>
+    </div>
+  </div>
+
+  <!-- Fixed canvas -->
+  <canvas id="video-canvas"></canvas>
+
+  <!-- Scroll container -->
+  <div id="scroll-container">
+
+    <!-- Spacer -->
+    <section class="section section-spacer" data-section="0">
+      <div class="section-inner"></div>
+    </section>
+
+    <!-- HERO -->
+    <section class="section section-hero" data-section="1">
+      <div class="section-inner">
+        <h1 class="hero-title">
+          <span class="line line-1">Dona</span>
+          <span class="line line-2">Vaša osebna pravna asistentka.</span>
+        </h1>
+        <p class="hero-sub">Napredna umetna inteligenca, ki deluje lokalno v vaši pisarni — vaši podatki nikoli ne zapustijo vaših prostorov.</p>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section section-problem" data-section="problem">
+      <div class="section-inner">
+        <h2 class="section-heading problem-heading">Izzivi sodobne odvetniške pisarne</h2>
+        <div class="problem-cols">
+          <div class="problem-col">
+            <p class="problem-text">Dnevno prejemate desetine dokumentov: tožbe, sklepe, dopise in vloge nasprotnih strank. Vsako gradivo zahteva natančen pregled, klasifikacijo v ustrezen spis, preverjanje rokov in pravočasen odziv.</p>
+          </div>
+          <div class="problem-col">
+            <p class="problem-text">Hkrati opravljate pravne raziskave v sistemu PISRS, preučujete sodno prakso, pripravljate vloge in bdite nad procesnimi roki. To je zamudno administrativno delo, pri katerem lahko že majhna napaka povzroči visoke stroške.</p>
+          </div>
+        </div>
+        <p class="problem-punchline">Dona prevzame administrativno breme, da se vi lahko posvetite strateškemu pravnemu delu.</p>
+      </div>
+    </section>
+
+    <!-- Zaupnost -->
+    <section class="section section-hardware" data-section="2">
+      <div class="section-inner align-left">
+        <h2 class="section-heading">Brezkompromisna zaupnost podatkov</h2>
+        <p class="section-body">Dona deluje izključno na lokalni napravi v vaši pisarni. Brez uporabe oblaka ali zunanjih strežnikov. Odvetniška tajnost, skladno z Zakonom o odvetništvu, je v celoti zagotovljena.</p>
+      </div>
+    </section>
+
+    <!-- Pravna inteligenca -->
+    <section class="section section-intelligence" data-section="3">
+      <div class="section-inner align-right">
+        <h2 class="section-heading">Celoten nabor slovenskega prava na dosegu roke</h2>
+        <p class="section-body">Dona v nekaj minutah preišče veljavno zakonodajo in obsežno sodno prakso. Identificira relevantne člene, sodne odločbe in pravne podlage, kar vam omogoča, da se popolnoma posvetite stranki.</p>
+      </div>
+    </section>
+
+    <!-- Statistike -->
+    <section class="section section-stats" data-section="stats">
+      <div class="section-inner">
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-number" data-target="900" data-suffix="+">0</span>
+            <span class="stat-label">zakonov in predpisov</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" data-target="350000" data-suffix="+">0</span>
+            <span class="stat-label">sodnih odločb</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" data-target="100">0</span>
+            <span class="stat-suffix">%</span>
+            <span class="stat-label">lokalno</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kako deluje -->
+    <section class="section section-workflow" data-section="workflow">
+      <div class="section-inner">
+        <h2 class="section-heading workflow-heading">Kako deluje</h2>
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <span class="step-number">1</span>
+            <h3>Prejem dokumenta</h3>
+            <p>Dona samodejno analizira vhodno pošto, prepozna vrsto dokumenta in ga klasificira v ustrezno zadevo.</p>
+          </div>
+          <div class="workflow-line"></div>
+          <div class="workflow-step">
+            <span class="step-number">2</span>
+            <h3>Avtomatizirana obdelava</h3>
+            <p>Sistem analizira vsebino, identificira procesne roke, pripravi povzetek in predlaga nadaljnja procesna dejanja.</p>
+          </div>
+          <div class="workflow-line"></div>
+          <div class="workflow-step">
+            <span class="step-number">3</span>
+            <h3>Pregled in potrditev</h3>
+            <p>Vsebino pregledate, po potrebi dopolnite in potrdite. Vsaka odločitev ostaja pod vašim izključnim nadzorom.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primer uporabe -->
+    <section class="section section-usecase" data-section="usecase">
+      <div class="section-inner">
+        <h2 class="section-heading usecase-heading">Primer iz prakse</h2>
+        <div class="usecase-card">
+          <div class="usecase-scenario">
+            <span class="usecase-label">Ponedeljek zjutraj, ob 8:15</span>
+            <p>Preko elektronske pošte prejmete sklep sodišča v kazenski zadevi z 8-dnevnim pritožbenim rokom.</p>
+          </div>
+          <div class="usecase-steps">
+            <div class="usecase-step">
+              <span class="usecase-dot"></span>
+              <p><strong>Dona analizira dokument</strong>, prepozna sklep o priporu in ga nemudoma razporedi v ustrezen spis.</p>
+            </div>
+            <div class="usecase-step">
+              <span class="usecase-dot"></span>
+              <p><strong>Zabeleži pritožbeni rok</strong> in vam pošlje opozorilo s ključnim povzetkom vsebine sklepa.</p>
+            </div>
+            <div class="usecase-step">
+              <span class="usecase-dot"></span>
+              <p><strong>Identificira pravno podlago</strong>: relevantne člene ZKP, sodno prakso in morebitne procesne kršitve.</p>
+            </div>
+            <div class="usecase-step">
+              <span class="usecase-dot"></span>
+              <p><strong>Pripravi strukturiran osnutek pritožbe</strong> s sklici na zakonodajo in sodno prakso, ki ga nato le še pregledate in oddate.</p>
+            </div>
+          </div>
+          <p class="usecase-result">Namesto treh ur intenzivnega dela zadošča le 20 minut za končni pregled in potrditev.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kaj zna -->
+    <section class="section section-features" data-section="4">
+      <div class="section-inner">
+        <h2 class="section-heading features-heading">Celoten delovni tok pisarne</h2>
+        <p class="features-sub">Dona ni le chatbot — je celovit sistem za upravljanje odvetniške pisarne.</p>
+        <div class="features-grid">
+          <div class="feature">
+            <h3>Upravljanje vhodne pošte</h3>
+            <p>Avtomatizirano razvrščanje in klasifikacija prejetih dokumentov. Dona prepozna tip dokumenta, ga dodeli spisu in vas obvesti o nujnih zadevah.</p>
+          </div>
+          <div class="feature">
+            <h3>Napredna pravna raziskava</h3>
+            <p>Iskanje zakonodaje in sodne prakse z uporabo naravnega jezika. Dona najde ustrezne zakonske člene in relevantne sodbe.</p>
+          </div>
+          <div class="feature">
+            <h3>Vodenje spisov</h3>
+            <p>Odpiranje, vodenje in zapiranje zadev. Vsi dokumenti, roki in opravila so zbrani na enem mestu.</p>
+          </div>
+          <div class="feature">
+            <h3>Inteligenten nadzor rokov</h3>
+            <p>Samodejna opozorila pred iztekom procesnih rokov. Dona skrbi, da ne spregledatle ničesar pomembnega.</p>
+          </div>
+          <div class="feature">
+            <h3>Priprava vlog</h3>
+            <p>Osnutki dokumentov na podlagi spisa in veljavne zakonodaje. Odvetnik pregleda, popravi in potrdi.</p>
+          </div>
+          <div class="feature">
+            <h3>Skladnost in revizija</h3>
+            <p>Avtomatizirano preverjanje skladnosti z ZPPDFT-2 s popolno revizijsko sledjo vseh dejanj.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section-cta" data-section="5">
+      <div class="section-inner">
+        <h2 class="cta-heading">Tehnologija pripravi.<br>Odvetnik odloči.</h2>
+        <p class="cta-sub">Dona ne nadomešča odvetnikove strokovnosti; je zmogljivo orodje, ki avtomatizira rutino in minimizira tveganje za napake.</p>
+        <a href="https://markowernig.si" target="_blank" rel="noopener" class="cta-button">Dogovorite se za predstavitev</a>
+        <div class="cta-badge">
+          <span class="badge-text">Lokalno &middot; Zaupno &middot; Skladno z ZOdv</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust strip -->
+    <section class="section section-trust" data-section="trust">
+      <div class="section-inner">
+        <div class="trust-items">
+          <div class="trust-item">
+            <span class="trust-icon">&#9881;</span>
+            <span class="trust-text">Deluje 100% lokalno</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">&#128274;</span>
+            <span class="trust-text">Odvetniška tajnost (ZOdv)</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">&#9989;</span>
+            <span class="trust-text">Skladno z GDPR</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">&#128196;</span>
+            <span class="trust-text">Revizijska sled vseh dejanj</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="section section-footer" data-section="footer">
+      <div class="section-inner">
+        <div class="footer-content">
+          <span class="footer-logo">D</span>
+          <span class="footer-name">Dona</span>
+          <span class="footer-tagline">Pravna inteligenca za vašo pisarno.</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
