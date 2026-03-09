@@ -97,8 +97,12 @@
   }
   </script>
 
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+
   <!-- Preload LCP frame -->
-  <link rel="preload" href="frames/frame_0001.jpg" as="image" fetchpriority="high">
+  <link rel="preload" href="frames/frame_0001.webp" as="image" fetchpriority="high">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,13 +115,24 @@
   <!-- Loading -->
   <div id="loader">
     <div class="loader-inner">
-      <div class="loader-ring"></div>
+      <span class="loader-logo">D</span>
+      <span class="loader-name">Dona</span>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill"></div>
+      </div>
       <span class="loader-percent">0%</span>
     </div>
   </div>
 
   <!-- Fixed canvas -->
   <canvas id="video-canvas"></canvas>
+
+  <!-- Scrolling background text -->
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>DONA</span><span>PRAVNA INTELIGENCA</span><span>DONA</span><span>PRAVNA INTELIGENCA</span><span>DONA</span><span>PRAVNA INTELIGENCA</span><span>DONA</span><span>PRAVNA INTELIGENCA</span>
+    </div>
+  </div>
 
   <!-- Scroll container -->
   <div id="scroll-container">

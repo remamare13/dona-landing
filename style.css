@@ -61,26 +61,53 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
+  gap: 0.8rem;
 }
 
-.loader-ring {
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid var(--text-dim);
-  border-top-color: var(--accent-gold);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--accent-gold);
+  line-height: 1;
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.loader-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.loader-bar-track {
+  width: 120px;
+  height: 2px;
+  background: var(--text-dim);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loader-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--accent-gold);
+  border-radius: 1px;
+  transition: width 0.15s ease;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; text-shadow: 0 0 10px rgba(212, 160, 52, 0); }
+  50% { opacity: 1; text-shadow: 0 0 20px rgba(212, 160, 52, 0.4); }
 }
 
 .loader-percent {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
 }
 
 /* ============================================
@@ -94,6 +121,42 @@ body {
   height: 100vh;
   z-index: 1;
   object-fit: cover;
+}
+
+/* ============================================
+   MARQUEE — scrolling background text
+   ============================================ */
+.marquee-track {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  transform: translateY(-50%);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.04;
+}
+
+.marquee-inner {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-inner span {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 12vw, 12rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  padding: 0 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ============================================

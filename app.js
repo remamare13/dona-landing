@@ -7,7 +7,7 @@
 
   const FRAME_COUNT = 243;
   const FRAME_PATH = 'frames/frame_';
-  const FRAME_EXT = '.jpg';
+  const FRAME_EXT = '.webp';
 
   const images = [];
   let loadedCount = 0;
@@ -53,6 +53,7 @@
   function preloadFrames() {
     return new Promise((resolve) => {
       const loaderPercent = document.querySelector('.loader-percent');
+      const loaderBarFill = document.querySelector('.loader-bar-fill');
 
       // Phase 1: every 5th frame (fast initial load)
       const keyFrames = [];
@@ -85,6 +86,7 @@
           keyLoaded++;
           const pct = Math.round((keyLoaded / totalKey) * 100);
           if (loaderPercent) loaderPercent.textContent = pct + '%';
+          if (loaderBarFill) loaderBarFill.style.width = pct + '%';
         })
       );
 
