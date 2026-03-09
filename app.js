@@ -483,6 +483,21 @@
     initLenis();
     initFrameScrub();
     initSectionAnimations();
+
+    // Hide scroll indicator on first scroll
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+      ScrollTrigger.create({
+        trigger: '#scroll-container',
+        start: 'top top',
+        end: '+=100',
+        onUpdate: (self) => {
+          if (self.progress > 0.01) {
+            scrollIndicator.classList.add('hidden');
+          }
+        },
+      });
+    }
   }
 
   if (document.readyState === 'loading') {

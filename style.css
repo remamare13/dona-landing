@@ -162,6 +162,54 @@ body {
 }
 
 /* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+.scroll-indicator {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  animation: indicator-fade-in 0.8s ease 1.5s forwards;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.scroll-indicator.hidden {
+  opacity: 0 !important;
+}
+
+.scroll-indicator-text {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6);
+}
+
+.scroll-indicator-arrow {
+  color: var(--accent-gold);
+  filter: drop-shadow(0 1px 6px rgba(0,0,0,0.7));
+  animation: indicator-bounce 2s ease-in-out infinite;
+}
+
+@keyframes indicator-fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes indicator-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ============================================
    SCROLL CONTAINER
    ============================================ */
 #scroll-container {
