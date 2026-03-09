@@ -5,13 +5,15 @@
 (function () {
   'use strict';
 
-  const FRAME_COUNT = 182;
+  const FRAME_COUNT = 243;
   const FRAME_PATH = 'frames/frame_';
   const FRAME_EXT = '.jpg';
 
   const images = [];
   let loadedCount = 0;
   let currentFrame = 0;
+  let targetFrame = 0;
+  let rafId = null;
   const canvas = document.getElementById('video-canvas');
   const ctx = canvas.getContext('2d');
 
@@ -103,8 +105,9 @@
 
   function initLenis() {
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
       touchMultiplier: 1.5,
     });
 
@@ -118,21 +121,32 @@
     return lenis;
   }
 
+  // --- Smooth frame interpolation via rAF ---
+  function smoothFrameLoop() {
+    if (currentFrame !== targetFrame) {
+      // Lerp toward target for buttery smooth transitions
+      const diff = targetFrame - currentFrame;
+      const step = diff > 0 ? Math.max(1, Math.ceil(diff * 0.3)) : Math.min(-1, Math.floor(diff * 0.3));
+      currentFrame += step;
+      drawFrame(currentFrame);
+    }
+    rafId = requestAnimationFrame(smoothFrameLoop);
+  }
+
   function initFrameScrub() {
+    // Start the smooth render loop
+    smoothFrameLoop();
+
     ScrollTrigger.create({
       trigger: '#scroll-container',
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 0.3,
+      scrub: true,
       onUpdate: (self) => {
-        const frame = Math.min(
+        targetFrame = Math.min(
           FRAME_COUNT - 1,
           Math.floor(self.progress * FRAME_COUNT)
         );
-        if (frame !== currentFrame) {
-          currentFrame = frame;
-          drawFrame(currentFrame);
-        }
       },
     });
   }
