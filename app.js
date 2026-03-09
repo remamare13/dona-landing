@@ -11,11 +11,12 @@
 
   const images = [];
   let loadedCount = 0;
-  let currentFrame = 0;
-  let targetFrame = 0;
+  let currentFrame = 0;      // float — smooth interpolated position
+  let targetFrame = 0;       // int — scroll-driven target
+  let lastDrawnFrame = -1;   // avoid redundant draws
   let rafId = null;
   const canvas = document.getElementById('video-canvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: false });
 
   // --- Format number with dots (Slovenian locale) ---
   function formatNumber(n) {
@@ -107,7 +108,7 @@
 
   function initLenis() {
     const lenis = new Lenis({
-      duration: 1.8,
+      duration: 2.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1.5,
@@ -124,14 +125,27 @@
   }
 
   // --- Smooth frame interpolation via rAF ---
+  const LERP_SPEED = 0.08; // lower = smoother but slower to catch up
+  const SNAP_THRESHOLD = 0.01;
+
   function smoothFrameLoop() {
-    if (currentFrame !== targetFrame) {
-      // Lerp toward target for buttery smooth transitions
-      const diff = targetFrame - currentFrame;
-      const step = diff > 0 ? Math.max(1, Math.ceil(diff * 0.3)) : Math.min(-1, Math.floor(diff * 0.3));
-      currentFrame += step;
-      drawFrame(currentFrame);
+    // Continuous float lerp toward target
+    const diff = targetFrame - currentFrame;
+    if (Math.abs(diff) > SNAP_THRESHOLD) {
+      currentFrame += diff * LERP_SPEED;
+      // Snap when very close
+      if (Math.abs(targetFrame - currentFrame) < SNAP_THRESHOLD) {
+        currentFrame = targetFrame;
+      }
     }
+
+    // Only redraw when the integer frame actually changes
+    const frameIndex = Math.round(currentFrame);
+    if (frameIndex !== lastDrawnFrame) {
+      lastDrawnFrame = frameIndex;
+      drawFrame(frameIndex);
+    }
+
     rafId = requestAnimationFrame(smoothFrameLoop);
   }
 
@@ -143,7 +157,7 @@
       trigger: '#scroll-container',
       start: 'top top',
       end: 'bottom bottom',
-      scrub: true,
+      scrub: 1.5,  // smooth scrub (seconds of lag behind scroll)
       onUpdate: (self) => {
         targetFrame = Math.min(
           FRAME_COUNT - 1,

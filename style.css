@@ -121,6 +121,8 @@ body {
   height: 100vh;
   z-index: 1;
   object-fit: cover;
+  will-change: contents;
+  image-rendering: auto;
 }
 
 /* ============================================
