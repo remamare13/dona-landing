@@ -1,17 +1,17 @@
 # Izboljšave dona.numenor.si
 
 Datum: 2026-03-11
-Status: PREDLOG — za pregled in implementacijo
+Status: NADOMEŠČEN z NACRT-PRENOVE.md
 
 ---
 
-## Povzetek
+## Opomba
 
-Stran je vizualno odlična (scroll-driven animacija, temna tema, profesionalen ton).
-Vsebinsko ima vrzeli ki zmanjšujejo konverzijo: brez vizualov UI-ja, brez social proof,
-en sam primer iz prakse, premalo detajlov pri modulih, brez FAQ.
+Ta dokument je bil prvi nabor idej. Nadomeščen je z:
+**[NACRT-PRENOVE.md](./NACRT-PRENOVE.md)** — ki vsebuje celoten načrt
+(homepage spremembe, podstrani, besedila, CSS, JS, prioritete).
 
-Spodaj so konkretne izboljšave, razvrščene po prioriteti.
+Spodaj ostajajo prvotne ideje za referenco.
 
 ---
 
