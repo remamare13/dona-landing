@@ -656,6 +656,29 @@ body {
   line-height: 1.7;
   color: var(--text-muted);
 }
+.feature-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.feature-link:hover { opacity: 1; }
+
+.usecase-more {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.usecase-more:hover { opacity: 1; }
 
 /* ============================================
    CTA

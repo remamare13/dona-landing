@@ -1,28 +1,63 @@
-# Dona — AI asistentka in ERP za odvetniške pisarne
+# Dona — AI za odvetniške pisarne
 
-> Dona je produkt podjetja Numenor d.o.o. AI asistentka in celovit ERP sistem, razvit posebej za slovenske odvetniške pisarne.
+> Dona je produkt podjetja Numenor d.o.o. AI za odvetniške pisarne z vsem kar pisarna rabi, razvita posebej za slovenske odvetniške pisarne. Deluje 100% lokalno.
 
 ## Kaj je Dona
 
-Dona je lokalno delujoč AI sistem, ki avtomatizira operativne procese odvetniške pisarne. Deluje 100% na lokalni napravi (Mac mini M4) — brez oblaka, brez zunanjih strežnikov. Odvetniška tajnost po Zakonu o odvetništvu je zagotovljena v celoti.
+Dona je lokalno delujoč AI sistem ki avtomatizira in centralizira vse operativne procese odvetniške pisarne. Deluje na lokalni napravi (Mac Mini M4) v prostorih pisarne — brez oblaka, brez zunanjih strežnikov. Odvetniška tajnost po Zakonu o odvetništvu (ZOdv) je zagotovljena v celoti.
 
-## Funkcionalnosti
+Dona ima vse kar pisarna rabi — 14 modulov ki nadomestijo ločena orodja za e-pošto, spise, roke, dokumente, stranke, obračun in skladnost. Vse v enem sistemu, z AI ki razume pravo.
 
-- **Vhodna pošta:** Samodejno branje, klasifikacija in razvrščanje prejetih dokumentov v ustrezne spise
-- **Centralno vodenje spisov:** Spisi, dokumenti, stranke, roki, opravila in korespondenca na enem mestu
-- **Upravljanje rokov:** Samodejna opozorila pred iztekom procesnih rokov
-- **Pravna raziskava:** Iskanje zakonodaje (PISRS) in sodne prakse (sodnapraksa.si) v naravnem jeziku
-- **Priprava dokumentov:** Osnutki vlog, pritožb in dopisov na podlagi spisa in veljavne zakonodaje
-- **ZPPDFT-2 compliance:** Avtomatizirano preverjanje skladnosti z revizijsko sledjo
+## 14 modulov
+
+1. **Vhodna pošta** — samodejno branje, klasifikacija in razvrščanje e-pošte prek IMAP, povezovanje s spisi
+2. **Pravna raziskava** — iskanje po 4 virih: PISRS (zakonodaja), sodnapraksa.si, EUR-Lex, ESČP. V naravnem jeziku. Integracija lastnih virov pisarne.
+3. **Spisi** — centralno vodenje zadev, 16 pravnih področij, 5 statusov, AI analiza (SWOT, verjetnost uspeha)
+4. **Roki** — procesni, zastaralni, pogodbeni in interni roki. Barvni indikatorji, do 3 opomniki, počitnice sodišč.
+5. **Dokumenti** — priprava osnutkov na podlagi spisa in zakonodaje, 7 kategorij predlog, 9 pametnih polj, OCR, verzioniranje (SHA-256)
+6. **Skladnost** — ZPPDFT-2 preverjanje strank (KYC), 3 ravni pregleda, ocena tveganja, GDPR brisanje na zahtevo
+7. **CRM strank** — evidenca strank, zdravstveni indeks (plačila 40%, aktivnost 30%, odprte zadeve 20%, zadovoljstvo 10%), segmentacija (VIP, redni, novi, dormantni), KYC dokumenti, pooblastila
+8. **Obračun** — odvetniška tarifa (OdvT), 10 tarifnih razredov (75–2.400 točk), 7 vrst aktivnosti, 3 načini obračuna, fakturiranje
+9. **e-Sodstvo** — eVložišče, COVL, eZK, eVročanje. Elektronsko vlaganje vlog neposredno iz sistema.
+10. **Naroki** — 6 vrst sodnih obravnav, samodejni kontrolni seznami za pripravo, opomniki 7/3/1 dan
+11. **Digitalni arhiv** — 10-letna hramba, mesečno preverjanje integritete (SHA-256), 90-dnevno opozorilo pred iztekom
+12. **Pooblastila** — upravljanje in sledenje pooblastil (splošno, za vpogled, procesno)
+13. **Poročila** — analitika, statistika, nadzorna plošča
+14. **AI asistentka Dona** — naravni jezik, povezuje vse module, pripravlja osnutke, išče zakonodajo, analizira zadeve
 
 ## Ključne lastnosti
 
-- 900+ zakonov in predpisov
-- 350.000+ sodnih odločb
-- 100% lokalno delovanje
-- Skladno z ZOdv (odvetniška tajnost) in GDPR
+- 14 modulov, ena platforma — AI z vsem kar pisarna rabi
+- 900+ zakonov in predpisov (PISRS)
+- 350.000+ sodnih odločb (sodnapraksa.si)
+- 4 pravni viri: slovenska zakonodaja, sodna praksa, EUR-Lex, ESČP
+- 100% lokalno delovanje — podatki nikoli ne zapustijo pisarne
+- Skladno z ZOdv (odvetniška tajnost), GDPR, ZPPDFT-2
+- Popolna revizijska sled vseh dejanj
+- Nasprotje interesov — samodejno preverjanje (EMŠO, davčna, ime)
+- Prilagodljivo — dodajanje virov, klasifikacij, predlog, delovnih tokov
+- Uvoz obstoječih podatkov ob uvedbi
+
+## Cenik
+
+- **Osnova:** 8.000 EUR + DDV — jedro sistema (spisi, roki, pošta, dokumenti, CRM, skladnost) + namestitev + uvoz + usposabljanje + 1 leto podpore
+- **AI Dona:** 4.000 EUR + DDV — pravna raziskava, priprava dokumentov, AI analiza, nasprotje interesov, integracija lastnih virov
+- **Obračun:** 2.000 EUR + DDV — OdvT tarifa, sledenje časa, fakturiranje
+- **e-Sodstvo:** 2.000 EUR + DDV — eVložišče, COVL, eZK, eVročanje
+- **Celovit paket:** 14.000 EUR + DDV — vse zgoraj + digitalni arhiv, naroki, poročila (prihranek 2.000 EUR)
+- **Letna podpora:** 2.000 EUR + DDV / leto (po prvem letu)
+- **Dodatni uporabniki:** 500 EUR + DDV / uporabnik (nad 5 vključenih)
+- Podroben cenik: https://dona.numenor.si/cenik
+
+## Uvedba
+
+1. Predstavitev — brezplačno, brez obveznosti
+2. Namestitev — en delovni dan
+3. Usposabljanje — za vse uporabnike
 
 ## Kontakt
 
-- Email: dona@numenor.si
+- E-pošta: dona@numenor.si
+- Podjetje: Numenor d.o.o.
 - Spletna stran: https://dona.numenor.si
+- Politika zasebnosti: https://dona.numenor.si/zasebnost
