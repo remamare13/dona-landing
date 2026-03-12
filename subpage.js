@@ -291,14 +291,17 @@ if (typeof IntersectionObserver !== 'undefined') {
     document.getElementById('calc-hours-val').textContent = h;
     document.getElementById('calc-rate-val').textContent = r;
 
+    // ur/mesec prihranjen = odvetniki * ur/teden * 4.33 tednov * 70% avtomatizacije
     var savedHours = Math.round(l * h * 4.33 * 0.7);
+    // EUR/mesec prihranjen prihodek (pridobljene ure * urna postavka)
     var savedMoney = savedHours * r;
-    var investment = 14000;
-    var roiMonths = Math.max(1, Math.ceil(investment / savedMoney));
+    // ROI: investicija 8.000 EUR / (mesečni prihranek - 300 EUR tekoči stroški)
+    var netMonthly = savedMoney - 300;
+    var roiMonths = netMonthly > 0 ? Math.max(1, Math.ceil(8000 / netMonthly)) : 99;
 
     document.getElementById('calc-hours-saved').textContent = fmt(savedHours);
     document.getElementById('calc-money-saved').textContent = fmt(savedMoney);
-    document.getElementById('calc-roi').textContent = roiMonths <= 1 ? '< 1' : roiMonths;
+    document.getElementById('calc-roi').textContent = roiMonths <= 1 ? '< 1' : roiMonths > 24 ? '24+' : roiMonths;
   }
 
   lawyers.addEventListener('input', calc);
