@@ -185,6 +185,14 @@ if (typeof IntersectionObserver !== 'undefined') {
   var prevIdx = idx > 0 ? idx - 1 : funcPages.length - 1;
   var nextIdx = idx < funcPages.length - 1 ? idx + 1 : 0;
 
+  // Prefetch prev/next pages for instant transitions
+  [prevIdx, nextIdx].forEach(function (i) {
+    var link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = funcPages[i].href;
+    document.head.appendChild(link);
+  });
+
   // Prev arrow
   var prev = document.createElement('div');
   prev.className = 'func-arrow func-arrow-prev';
