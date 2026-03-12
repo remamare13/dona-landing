@@ -164,9 +164,8 @@ if (typeof IntersectionObserver !== 'undefined') {
   }, { passive: true });
 })();
 
-// Function page navigation: arrows + bottom func-nav + slide
+// Function page navigation: SPA-like slide transitions
 (function () {
-  var path = window.location.pathname.replace(/\/$/, '');
   var funcPages = [
     { href: '/funkcije/raziskava', text: 'Pravno raziskovanje' },
     { href: '/funkcije/posta', text: 'Vhodna pošta' },
@@ -176,38 +175,37 @@ if (typeof IntersectionObserver !== 'undefined') {
     { href: '/funkcije/skladnost', text: 'Skladnost' }
   ];
 
+  var path = window.location.pathname.replace(/\/$/, '');
   var idx = -1;
-  funcPages.forEach(function (p, i) {
-    if (path === p.href) idx = i;
-  });
+  funcPages.forEach(function (p, i) { if (path === p.href) idx = i; });
   if (idx === -1) return;
 
   var prevIdx = idx > 0 ? idx - 1 : funcPages.length - 1;
   var nextIdx = idx < funcPages.length - 1 ? idx + 1 : 0;
 
-  // Prefetch prev/next pages for instant transitions
-  [prevIdx, nextIdx].forEach(function (i) {
-    var link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = funcPages[i].href;
-    document.head.appendChild(link);
+  // Prefetch ALL function pages into cache for instant swap
+  var pageCache = {};
+  funcPages.forEach(function (p) {
+    if (p.href === path) return;
+    fetch(p.href).then(function (r) { return r.text(); }).then(function (html) {
+      pageCache[p.href] = html;
+    });
   });
 
-  // Prev arrow
+  // Build arrows
   var prev = document.createElement('div');
   prev.className = 'func-arrow func-arrow-prev';
   prev.innerHTML = '<a href="' + funcPages[prevIdx].href + '" data-slide="prev" aria-label="' + funcPages[prevIdx].text + '">' +
     '&#8249;<span class="func-arrow-label">' + funcPages[prevIdx].text + '</span></a>';
   document.body.appendChild(prev);
 
-  // Next arrow
   var next = document.createElement('div');
   next.className = 'func-arrow func-arrow-next';
   next.innerHTML = '<a href="' + funcPages[nextIdx].href + '" data-slide="next" aria-label="' + funcPages[nextIdx].text + '">' +
     '&#8250;<span class="func-arrow-label">' + funcPages[nextIdx].text + '</span></a>';
   document.body.appendChild(next);
 
-  // Bottom func-nav
+  // Build bottom func-nav
   var footer = document.querySelector('.footer');
   if (footer) {
     var bottomNav = document.createElement('div');
@@ -223,52 +221,155 @@ if (typeof IntersectionObserver !== 'undefined') {
     footer.parentNode.insertBefore(bottomNav, footer);
   }
 
-  // Gather all slideable elements
-  var content = document.querySelector('.content');
-  var funcNavTop = document.querySelector('.func-nav:not(.func-nav-bottom)');
-  var funcNavBot = document.querySelector('.func-nav-bottom');
-  var slideEls = [funcNavTop, content, funcNavBot].filter(Boolean);
+  var sliding = false;
 
-  // Slide-in on page load
-  var slideDir = sessionStorage.getItem('func-slide');
-  if (slideDir && slideEls.length) {
-    sessionStorage.removeItem('func-slide');
-    window.scrollTo(0, 0);
+  function getSlideEls() {
+    return [
+      document.querySelector('.func-nav:not(.func-nav-bottom)'),
+      document.querySelector('.content'),
+      document.querySelector('.func-nav-bottom')
+    ].filter(Boolean);
+  }
+
+  // Swap page content in-place (no full reload)
+  function swapPage(href, dir) {
+    if (sliding) return;
+    sliding = true;
+
+    var slideEls = getSlideEls();
+    var content = document.querySelector('.content');
     document.body.classList.add('sliding');
-    var cls = slideDir === 'next' ? 'slide-in-from-right' : 'slide-in-from-left';
-    slideEls.forEach(function (el) { el.classList.add(cls); });
+
+    // Slide out
+    var outCls = dir === 'next' ? 'slide-out-left' : 'slide-out-right';
+    slideEls.forEach(function (el) { el.classList.add(outCls); });
+
+    function doSwap(html) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+
+      // Swap content
+      var newContent = doc.querySelector('.content');
+      var newFuncNav = doc.querySelector('.func-nav');
+      var oldContent = document.querySelector('.content');
+      var oldFuncNav = document.querySelector('.func-nav:not(.func-nav-bottom)');
+
+      if (newContent && oldContent) oldContent.parentNode.replaceChild(newContent, oldContent);
+      if (newFuncNav && oldFuncNav) oldFuncNav.parentNode.replaceChild(newFuncNav, oldFuncNav);
+
+      // Update title
+      var newTitle = doc.querySelector('title');
+      if (newTitle) document.title = newTitle.textContent;
+
+      // Update URL
+      history.pushState(null, '', href);
+      path = href;
+
+      // Recalculate index
+      idx = -1;
+      funcPages.forEach(function (p, i) { if (path === p.href) idx = i; });
+      prevIdx = idx > 0 ? idx - 1 : funcPages.length - 1;
+      nextIdx = idx < funcPages.length - 1 ? idx + 1 : 0;
+
+      // Update arrows
+      var prevA = document.querySelector('.func-arrow-prev a');
+      var nextA = document.querySelector('.func-arrow-next a');
+      prevA.href = funcPages[prevIdx].href;
+      prevA.setAttribute('aria-label', funcPages[prevIdx].text);
+      prevA.querySelector('.func-arrow-label').textContent = funcPages[prevIdx].text;
+      nextA.href = funcPages[nextIdx].href;
+      nextA.setAttribute('aria-label', funcPages[nextIdx].text);
+      nextA.querySelector('.func-arrow-label').textContent = funcPages[nextIdx].text;
+
+      // Rebuild bottom func-nav
+      var oldBot = document.querySelector('.func-nav-bottom');
+      if (oldBot) oldBot.remove();
+      var ft = document.querySelector('.footer');
+      if (ft) {
+        var bn = document.createElement('div');
+        bn.className = 'func-nav func-nav-bottom';
+        funcPages.forEach(function (p) {
+          var a = document.createElement('a');
+          a.href = p.href;
+          a.textContent = p.text;
+          if (path === p.href) a.classList.add('active');
+          a.setAttribute('data-slide', funcPages.indexOf(p) > idx ? 'next' : 'prev');
+          bn.appendChild(a);
+        });
+        ft.parentNode.insertBefore(bn, ft);
+        bindFuncNavClicks();
+      }
+
+      // Re-init fade-in observer for new content
+      if (typeof IntersectionObserver !== 'undefined') {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)'; }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.content .fade-in').forEach(function (el) {
+          el.style.opacity = 0;
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          obs.observe(el);
+        });
+      }
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+
+      // Slide in
+      var newSlideEls = getSlideEls();
+      var inCls = dir === 'next' ? 'slide-in-from-right' : 'slide-in-from-left';
+      newSlideEls.forEach(function (el) { el.classList.add(inCls); });
+      var newC = document.querySelector('.content');
+      newC.addEventListener('animationend', function () {
+        newSlideEls.forEach(function (el) { el.classList.remove(inCls); });
+        document.body.classList.remove('sliding');
+        sliding = false;
+      }, { once: true });
+    }
+
     content.addEventListener('animationend', function () {
-      slideEls.forEach(function (el) { el.classList.remove(cls); });
-      document.body.classList.remove('sliding');
+      if (pageCache[href]) {
+        doSwap(pageCache[href]);
+      } else {
+        fetch(href).then(function (r) { return r.text(); }).then(doSwap);
+      }
     }, { once: true });
   }
 
-  // Slide-out on arrow/func-nav click
   function handleSlideClick(e) {
     var link = e.currentTarget;
     var dir = link.getAttribute('data-slide');
-    if (!dir || !slideEls.length) return;
-    e.preventDefault();
     var href = link.getAttribute('href');
-    sessionStorage.setItem('func-slide', dir);
-    document.body.classList.add('sliding');
-    var cls = dir === 'next' ? 'slide-out-left' : 'slide-out-right';
-    slideEls.forEach(function (el) { el.classList.add(cls); });
-    content.addEventListener('animationend', function () {
-      window.location.href = href;
-    }, { once: true });
+    if (!dir || !href || href === path) return;
+    e.preventDefault();
+    swapPage(href, dir);
   }
 
+  // Bind clicks on arrows
   document.querySelectorAll('.func-arrow a').forEach(function (a) {
     a.addEventListener('click', handleSlideClick);
   });
-  document.querySelectorAll('.func-nav a:not(.active)').forEach(function (a) {
-    if (!a.getAttribute('data-slide')) {
-      var linkIdx = -1;
-      funcPages.forEach(function (p, i) { if (a.getAttribute('href') === p.href) linkIdx = i; });
-      a.setAttribute('data-slide', linkIdx > idx ? 'next' : 'prev');
-    }
-    a.addEventListener('click', handleSlideClick);
+
+  // Bind clicks on all func-nav links
+  function bindFuncNavClicks() {
+    document.querySelectorAll('.func-nav a:not(.active)').forEach(function (a) {
+      if (!a.getAttribute('data-slide')) {
+        var linkIdx = -1;
+        funcPages.forEach(function (p, i) { if (a.getAttribute('href') === p.href) linkIdx = i; });
+        a.setAttribute('data-slide', linkIdx > idx ? 'next' : 'prev');
+      }
+      a.removeEventListener('click', handleSlideClick);
+      a.addEventListener('click', handleSlideClick);
+    });
+  }
+  bindFuncNavClicks();
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', function () {
+    window.location.reload();
   });
 })();
 
