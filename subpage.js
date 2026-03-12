@@ -301,7 +301,21 @@ if (typeof IntersectionObserver !== 'undefined') {
 
     document.getElementById('calc-hours-saved').textContent = fmt(savedHours);
     document.getElementById('calc-money-saved').textContent = fmt(savedMoney);
-    document.getElementById('calc-roi').textContent = roiMonths <= 1 ? '< 1' : roiMonths > 24 ? '24+' : roiMonths;
+
+    // Slovenska sklanjatev: 1 mesec, 2 meseca, 3-4 mesece, 5+ mesecev
+    var roiText;
+    if (roiMonths <= 1) { roiText = '< 1'; }
+    else if (roiMonths > 24) { roiText = '24+'; }
+    else { roiText = roiMonths; }
+    document.getElementById('calc-roi').textContent = roiText;
+
+    var m = roiMonths % 100;
+    var label;
+    if (roiMonths <= 1) { label = 'mesec do povrnitve investicije'; }
+    else if (m === 2) { label = 'meseca do povrnitve investicije'; }
+    else if (m === 3 || m === 4) { label = 'mesece do povrnitve investicije'; }
+    else { label = 'mesecev do povrnitve investicije'; }
+    document.getElementById('calc-roi').parentElement.querySelector('.calc-result-label').textContent = label;
   }
 
   lawyers.addEventListener('input', calc);
