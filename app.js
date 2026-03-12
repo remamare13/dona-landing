@@ -442,7 +442,11 @@
       .to('.cta-badge', {
         opacity: 1,
         duration: 0.5, ease: 'power2.out',
-      }, 0.65);
+      }, 0.65)
+      .to('.cta-secondary', {
+        opacity: 1,
+        duration: 0.5, ease: 'power2.out',
+      }, 0.8);
 
     // --- TRUST STRIP ---
     ScrollTrigger.create({

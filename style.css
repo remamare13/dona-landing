@@ -658,15 +658,21 @@ body {
 }
 .feature-link {
   display: inline-block;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.88rem;
+  font-weight: 500;
   color: var(--accent-gold);
   text-decoration: none;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(212, 160, 52, 0.25);
+  border-radius: 100px;
+  transition: border-color 0.2s, background 0.2s;
 }
-.feature-link:hover { opacity: 1; }
+.feature-link:hover {
+  border-color: var(--accent-gold);
+  background: rgba(212, 160, 52, 0.08);
+}
 
 .usecase-more {
   display: inline-block;
@@ -744,6 +750,20 @@ body {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.cta-secondary {
+  display: block;
+  margin-top: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  opacity: 0;
+}
+.cta-secondary:hover {
   color: var(--accent-gold);
 }
 
